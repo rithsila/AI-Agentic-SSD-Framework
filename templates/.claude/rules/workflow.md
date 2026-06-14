@@ -16,6 +16,7 @@ This project is driven by the specs (`PRD.md`, `ImplementPlan.md`, and `DESIGN.m
 
 ## During task execution
 - Use the relevant skill, tool, or MCP for the project's stack (see `stack.md`) when available.
+- On any task touching auth/authz, user input, secrets, payments, or a new endpoint, apply `security.md` and delegate the review to the security-reviewer subagent (or run `/security-check`) before declaring done.
 - **Generate migration files only — never run a migration against a non-dev database from this agent** (the migration command lives in `stack.md`). Production migrations are run by a human after review.
 - Never run destructive commands (database reset/drop, `rm -rf`) without explicit per-task approval.
 - Do NOT modify files outside the task's declared `Deliverables` list.

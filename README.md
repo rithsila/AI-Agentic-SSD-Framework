@@ -75,7 +75,7 @@ stay in sync instead of being hand-maintained per project.
 
 Copied into a project under `.claude/` (plus a root `CLAUDE.md` and the `prompts/` folder):
 
-**Commands (8)** — bare names by default; namespace under `sdd:` only if your tooling needs it.
+**Commands (9)** — bare names by default; namespace under `sdd:` only if your tooling needs it.
 
 | Command | Does |
 |---|---|
@@ -176,7 +176,7 @@ what each artifact looks like filled in:
 - `PRD.md` / `DESIGN.md` / `ImplementPlan.md` — the three specs, with a 40-task plan and a "Resolved
   decisions (locked)" block.
 - `.claude/rules/` — the rules generated from those specs. `stack.md`, `security.md`, and `design.md` are
-  filled; `workflow.md` is the generic file, identical to the template — proof of the copy-as-is rule.
+  filled; `workflow.md` is the generic file, copied as-is — it carries no project specifics.
 
 The Medusa/Bakong specifics there are example content. Your project's rules will name your stack.
 

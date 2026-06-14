@@ -6,7 +6,7 @@ auto-loaded rule files from the specs — so rules stay in sync with the specs i
 ## Output (rule files in `.claude/rules/`)
 Start from the BASE/TEMPLATE versions in `templates/.claude/rules/` and fill the project slots:
 - `stack.md` — fill the TEMPLATE with this project's locked facts from `PRD.md §5` and the repos: exact versions, repo layout, file organization, conventions, env vars, commands.
-- `security.md` — keep the universal BASE rules; fill the "Project-specific" section from `PRD.md §9`, the data model, and the payment/auth design.
+- `security.md` — keep the universal BASE rules; fill the "Project-specific" section from `PRD.md §9`, the data model, and the payment/auth design. If `stack.md` names a stack with a matching security skill (e.g. `django-security`, `springboot-security`, `laravel-security`) or a compliance regime (e.g. `hipaa-compliance`), point the "Project-specific" section at that skill by name — reference it, don't inline its content (specifics live in the generated rule, the core still ships no skills).
 - `design.md` — **only if the project has a web frontend** (a `DESIGN.md` exists). Keep the universal BASE rules; fill the "Tokens (project)" section from `DESIGN.md` (exact tokens, component inventory, breakpoints, accent-usage rule, decoration policy). If there's no `DESIGN.md`, the project has no UI — delete `.claude/rules/design.md` so it doesn't auto-load and tax the token budget, and note the deletion.
 - `workflow.md` — copy the generic file as-is; it is portable across all projects.
 
