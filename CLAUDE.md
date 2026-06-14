@@ -24,7 +24,7 @@ The repository holds the **SDD Framework**: a lean, stack-agnostic spec-driven-d
 │   ├── commands/        9 slash-command bodies (task, verify, done, status, clarify, commit,
 │   │                    security-check, security-audit, spec)
 │   └── agents/          3 model-tiered subagents (orchestrator=opus, implementer=sonnet, committer=haiku)
-├── prompts/             5 generation prompts (prd-, design-, plan-, rules-, docs-)
+├── prompts/             6 generation prompts (prd-, onboard-, design-, plan-, rules-, docs-)
 └── examples/ali-store/  one fully worked instance (PRD, DESIGN, ImplementPlan + filled .claude/rules/)
 ```
 
@@ -52,7 +52,7 @@ Preserve the principles the framework exists to enforce (`FRAMEWORK.md §Princip
 1. **Specs vs rules stay separate.** Specs (`PRD.md`, `DESIGN.md`, `ImplementPlan.md`) are long and load on demand. Rules are short and auto-load every task. Never fold spec-length detail into a rule file. Keep rule files under ~80 lines.
 2. **Commands & prompts stay generic; rules carry specifics.** No stack assumptions hardcoded into a command or prompt — they point at `.claude/rules/`, where per-project truth lives.
 3. **Fixed filenames.** `PRD.md`, `DESIGN.md`, `ImplementPlan.md` — never brand-prefixed. Provenance goes in a file header, not the filename.
-4. **Restraint over coverage.** The framework is deliberately small (9 commands, 3 agents, 4 rules, 5 prompts). Don't add files or sections speculatively. If you change these counts, update `FRAMEWORK.md §Counts` to match.
+4. **Restraint over coverage.** The framework is deliberately small (9 commands, 3 agents, 4 rules, 6 prompts). Don't add files or sections speculatively. If you change these counts, update `FRAMEWORK.md §Counts` to match.
 
 ## The worked example vs. the generic templates
 

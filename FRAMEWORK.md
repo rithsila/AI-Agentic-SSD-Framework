@@ -36,6 +36,7 @@ sdd-framework/
 │           └── committer.md        haiku — commits, trivial edits
 ├── prompts/                        spec generators (run rarely → prompts, not commands)
 │   ├── prd-prompt.md
+│   ├── onboard-prompt.md           reverse-documents an existing codebase (brownfield)
 │   ├── design-prompt.md
 │   ├── plan-prompt.md
 │   ├── rules-prompt.md             generates stack/security/design from the specs
@@ -52,7 +53,7 @@ sdd-framework/
 - **Slash commands: 9.** Bare names by default (`/spec`, `/task`, …). Namespace them under `sdd:` only if your tooling needs collision-avoidance with other plugins (ECC etc.) — see `INSTALL.md`.
 - **Agents: 3** — risk-tiered for model routing (opus / sonnet / haiku). `/task` delegates routine tasks to `implementer`; payments/auth/schema stay with the orchestrator.
 - **Rules: 4** — workflow (generic), stack (template), security (base+slot), design (base+slot).
-- **Prompts: 5** — the generation flow.
+- **Prompts: 6** — the generation flow (`onboard` is the brownfield entry that reverse-documents existing code; the other five run greenfield).
 
 ## Token strategy (why it stays cheap)
 
@@ -74,3 +75,5 @@ sdd-framework/
 Each generation step asks clarifying questions before writing. Rules are generated from the specs, not hand-written per project.
 
 `/spec design` is conditional — skip it for non-UI projects (CLI, API-only, library); `/spec rules` then omits `design.md`.
+
+For brownfield (existing/inherited/bought code), start with `/spec onboard` instead of `/spec prd`: it reads the repo and fills `stack.md` plus a current-state `PRD.md`, so the rest of the flow targets your changes rather than re-scaffolding what already exists.

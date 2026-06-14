@@ -2,7 +2,8 @@ Route to the right SDD generation prompt and run it.
 
 `$ARGUMENTS` selects the step (first word), with any remaining text passed through as the prompt's input:
 
-- `prd`      → `prompts/prd-prompt.md`        — start `PRD.md` from a rough idea
+- `prd`      → `prompts/prd-prompt.md`        — start `PRD.md` from a rough idea (greenfield)
+- `onboard`  → `prompts/onboard-prompt.md`    — reverse-document an existing codebase (brownfield); fills `stack.md` + a baseline `PRD.md`
 - `design`   → `prompts/design-prompt.md`     — pick or write `DESIGN.md` (run after PRD)
 - `plan`     → `prompts/plan-prompt.md`       — generate `ImplementPlan.md` from PRD + DESIGN
 - `rules`    → `prompts/rules-prompt.md`      — generate `.claude/rules/{stack,security,design}.md` from the specs
@@ -15,12 +16,13 @@ Route to the right SDD generation prompt and run it.
 4. Pass any text after the step name through to the prompt as its input.
 
 ## Rules
-- One step per `/spec` call. Run them in order: prd → design → plan → rules.
+- One step per `/spec` call. Greenfield order: prd → design → plan → rules. Brownfield: onboard → (edit `PRD.md` to add your change) → design (only if touching UI) → plan → rules. `onboard` replaces `prd` for existing code — don't run both.
 - Never guess on payments, auth, or schema — the prompts ask first by design.
 - The prompts live at the project root `prompts/` (copied in during install — see `INSTALL.md`).
 
 Usage:
   /spec prd "online clothing store with KHQR + COD for Cambodia"
+  /spec onboard "add loyalty points to this existing store"
   /spec design
   /spec plan
   /spec rules

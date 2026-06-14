@@ -11,9 +11,9 @@ invariants the framework refuses to break, see `FRAMEWORK.md`. To drop it into a
 
 ## What this is
 
-A pipeline that turns a rough idea into shipped code through four short specs and a tight build loop. The
+A pipeline that turns a rough idea into shipped code through three short specs and a tight build loop. The
 agent interviews you, you decide, and each step is a checkpoint you approve before the next one runs. The
-framework is deliberately small — 9 commands, 3 agents, 4 rules, 5 prompts — so one person can read every
+framework is deliberately small — 9 commands, 3 agents, 4 rules, 6 prompts — so one person can read every
 file in an afternoon.
 
 It is stack-agnostic. Nothing in the commands, agents, or prompts assumes a database, a UI library, or a
@@ -71,6 +71,9 @@ Every arrow is a checkpoint. The agent does not advance to the next phase withou
 generation step asks clarifying questions before it writes. Rules are generated from the specs, so they
 stay in sync instead of being hand-maintained per project.
 
+Working on existing code? Start with `/spec onboard` instead of `/spec prd` — it reads the repo and writes
+the specs from what's already there. Same build loop from then on. See "Generate the specs" below.
+
 ## What's in the box
 
 Copied into a project under `.claude/` (plus a root `CLAUDE.md` and the `prompts/` folder):
@@ -79,7 +82,7 @@ Copied into a project under `.claude/` (plus a root `CLAUDE.md` and the `prompts
 
 | Command | Does |
 |---|---|
-| `/spec <step>` | Routes to a generation prompt: `prd`, `design`, `plan`, `rules`, `docs` |
+| `/spec <step>` | Routes to a generation prompt: `prd`, `onboard`, `design`, `plan`, `rules`, `docs` |
 | `/task <ID>` | Reads a task from `ImplementPlan.md` and executes only that task |
 | `/verify [ID]` | Runs the project's lint/typecheck/build/test gates; reports pass/fail, fixes nothing |
 | `/security-check` | Reviews the last task's changes against `security.md` |
@@ -97,7 +100,8 @@ runs interactively at the committer tier.
 **Rules (4)** — `workflow.md` (generic, copy as-is); `stack.md` (template, filled per project);
 `security.md` and `design.md` (universal base rules plus a project slot).
 
-**Prompts (5)** — `prd`, `design`, `plan`, `rules`, `docs`. The generation flow, run rarely.
+**Prompts (6)** — `prd`, `onboard`, `design`, `plan`, `rules`, `docs`. The generation flow, run rarely.
+`onboard` is the brownfield entry — it reverse-documents existing code instead of starting from an idea.
 
 **Skills: 0.** Skills are stack-specific procedural knowledge; they belong in a project, not the portable
 framework. See "Adding skills" below.
@@ -125,6 +129,12 @@ Each step asks questions first — answer them, don't let it guess.
 /spec plan                    → ImplementPlan.md  small tasks (≤30 min each) in dependency order
 /spec rules                   → .claude/rules/    fills stack/security/design from the specs
 ```
+
+**Existing code (brownfield)?** Start with `/spec onboard` instead of `/spec prd`. It reads the repo and
+writes `stack.md` (from the versions and commands actually in the code) plus a current-state `PRD.md`. Add
+your change to that `PRD.md`, then run `/spec rules` (fills `security.md`/`design.md` — keep the `stack.md`
+onboard wrote) and `/spec plan` (it amends, so it won't re-scaffold what exists). The build loop is
+identical from there.
 
 `/spec design` is library-first: it picks the best-fit system from the
 [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) collection and substitutes free fonts
@@ -200,4 +210,4 @@ portable.
 
 - `FRAMEWORK.md` — structure, principles, counts, and the token strategy.
 - `INSTALL.md` — copy the template into a project and generate the specs.
-- `prompts/` — the five generation prompts `/spec` routes to.
+- `prompts/` — the six generation prompts `/spec` routes to.
